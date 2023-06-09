@@ -28,14 +28,20 @@
         const targetSquare = event.target.dataset.square;
         console.log(sourceSquare, targetSquare)
         // Perform move validation and update the chess position accordingly
-        const move = chess.move({
-            from: sourceSquare,
-            to: targetSquare,
-            promotion: 'q' // always promote to a queen for example simplicity
-        });
-        // After the move, update the component's position and re-render
-        position = chess.board();
+        try {
 
+            const move = chess.move({
+                from: sourceSquare,
+                to: targetSquare,
+                promotion: 'q' // always promote to a queen for example simplicity
+            });
+            // After the move, update the component's position and re-render
+            position = chess.board();
+        }
+        catch (e) {
+            console.log("Invalid move");
+        }
+            
     }
     $: {
     }
