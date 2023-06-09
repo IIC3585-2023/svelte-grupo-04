@@ -9,8 +9,8 @@
     const RANK = Object.fromEntries([...Array(8)].map((_, i) => [String(i + 1), i]));
     const FILE = Object.fromEntries("abcdefgh".split('').map((c, i) => [c, i]));
 
-    function getSquareColor(file, rank) {
-        let isEvenSquare = (file.charCodeAt(0) + rank.charCodeAt(0) + 1) % 2 === 0;
+    function getSquareColor(file_num, rank_num) {
+        let isEvenSquare = (file_num + rank_num) % 2 === 0;
         return isEvenSquare ? '#f0d9b5' : '#a07958';
     }
 
@@ -54,7 +54,7 @@
         {#each row as square, j}
         <div
             class="square"
-            style="background-color: {getSquareColor(String.fromCharCode(97 + j), String.fromCharCode(56 - i))}"
+            style="background-color: {getSquareColor(j, i)}"
             data-square="{String.fromCharCode(97 + j)}{String.fromCharCode(56 - i)}"
             on:dragstart={handleDragStart}
             on:dragover={handleDragOver}
