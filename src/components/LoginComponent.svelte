@@ -1,5 +1,6 @@
 <script>
 	import { store } from '../hooks/auth';
+    import { navigate } from 'svelte-routing'
 
 	let username = '';
 	let password = '';
@@ -7,14 +8,20 @@
 
 	async function login() {
         const response = await fetch('https://sveltebackendv2.onrender.com/users/login', {
-			method: 'POST',
-			body: JSON.stringify({
-				username:username,
-				password:password
-			})
-		})
-        console.log(response)
-		$store = username
+            method: 'POST',
+            headers: {
+                'Accept': '*/*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+            })
+        if (response.status === 200){
+            $store = username
+            navigate('/')
+        }
 	}
 
 </script>
