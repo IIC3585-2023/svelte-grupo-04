@@ -1,14 +1,25 @@
 <script>
-    import Piece from "./Piece.svelte";
     import { Chess } from 'chess.js';
+    import piecesjson from '../utils/pieces.json';
 
+    // props
+    export let pgn = null;
+
+
+    // variables
     let chess = new Chess();
+    if (pgn) {
+        chess.loadPgn(pgn);
+    }
+    else {
+    }
     let position = chess.board();
+    
+    let currentTurn = chess.turn();
     let currSourceSquare = null;
 
-    const RANK = Object.fromEntries([...Array(8)].map((_, i) => [String(i + 1), i]));
-    const FILE = Object.fromEntries("abcdefgh".split('').map((c, i) => [c, i]));
 
+    // methods
     function getSquareColor(file_num, rank_num) {
         let isEvenSquare = (file_num + rank_num) % 2 === 0;
         return isEvenSquare ? '#f0d9b5' : '#a07958';
@@ -16,6 +27,7 @@
 
     function handleDragStart(event) {
         currSourceSquare = event.target.dataset.square;
+        console.log(currSourceSquare);
     }
 
     function handleDragOver(event) {
@@ -37,13 +49,18 @@
             });
             // After the move, update the component's position and re-render
             position = chess.board();
+            currentTurn = chess.turn();
         }
         catch (e) {
             console.log("Invalid move");
         }
             
     }
+
+    
+    // watch, dont remove
     $: {
+        // re-render the board when the position changes
     }
 </script>
 
@@ -51,18 +68,23 @@
     <div class="chessboard">
         <!-- iterate in position -->
         {#each position as row, i}
-        {#each row as square, j}
+        {#each row as squareData, j}
         <div
             class="square"
             style="background-color: {getSquareColor(j, i)}"
-            data-square="{String.fromCharCode(97 + j)}{String.fromCharCode(56 - i)}"
-            on:dragstart={handleDragStart}
+            data-square="{String.fromCharCode(97 + j)}{8 - i}"
+            draggable="false"
             on:dragover={handleDragOver}
             on:drop={handleDrop}
-            draggable="true"
         >
-            {#if square}
-            <Piece piece={square.type + square.color} />
+            {#if squareData}
+                <img src={piecesjson[squareData.type + squareData.color]}
+                data-square="{squareData.square}"
+                alt=""
+                class="piece {currentTurn === squareData.color ? 'draggable' : ''}"
+                on:dragstart={handleDragStart}
+                draggable="{currentTurn === squareData.color}"
+                />
             {/if}
 
         </div>
@@ -77,10 +99,23 @@
         display: grid;
         grid-template-columns: repeat(8, 1fr);
         grid-template-rows: repeat(8, 1fr);
-        width: 450px;
-        height: 450px;
+        width: 500px;
+        height: 500px;
+    }
+    .square {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    .square {
+    .piece {
+        width: 100%;
+        height: 100%;
+    }
+
+    .draggable {
+        cursor: pointer;
     }
 </style>
