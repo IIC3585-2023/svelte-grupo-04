@@ -1,29 +1,12 @@
 <script>
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
-  import Chessboard from './components/Chessboard.svelte'
+  import { Router, Route } from 'svelte-routing';
+  import Home from './pages/Home.svelte';
+  import Puzzles from './pages/Puzzles.svelte';
+  import Login from './pages/Login.svelte';
 </script>
 
-<main>
-  <div>
-    <Chessboard />
-</main>
-
-<style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
-  }
-</style>
+<Router>
+  <Route path="/" component={Home} />
+  <Route path="/puzzles" component={Puzzles} />
+  <Route path="/login" component={Login} />
+</Router>
