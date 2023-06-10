@@ -124,8 +124,8 @@ const app = express();
 app.use(bodyParser.json());
 
 // Arrays y objetos para almacenar los datos de los usuarios
-const users = [];
-let lastUserId = 1;
+const users = require("../util/users");
+let last_id = 4;
 
 // Ruta GET para obtener la lista de usuarios
 router.get("/", (req, res) => {
@@ -136,11 +136,11 @@ router.get("/", (req, res) => {
 router.post("/register", (req, res) => {
   const { username, password } = req.body;
   const newUser = {
-    id: lastUserId,
+    id: last_id,
     username,
     password,
   };
-  lastUserId++;
+  last_id++;
   users.push(newUser);
   res.status(200).json(newUser);
 });
