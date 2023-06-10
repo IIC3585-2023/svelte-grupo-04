@@ -127,7 +127,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // Arrays y objects para almacenar los datos
-const posts = require("../utils/posts");
+const puzzles = require("../utils/posts");
 let last_id = 5;
 
 // Ruta GET para recibir los posts
