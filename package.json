@@ -14,6 +14,7 @@
     "vite": "^4.3.9"
   },
   "dependencies": {
-    "chess.js": "^1.0.0-beta.6"
+    "chess.js": "^1.0.0-beta.6",
+    "svelte-routing": "^1.10.0"
   }
 }
