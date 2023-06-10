@@ -8,6 +8,53 @@
  *         - username
  *         - pgn
  *         - puzzle
+ *         - description
+ *         - tags
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: The auto-generated id of the post
+ *           readOnly: true
+ *         username:
+ *           type: string
+ *           description: The username the post
+ *         pgn:
+ *           type: string
+ *           description: The pgn of the post
+ *         puzzle:
+ *           type: object
+ *           description: The post solution
+ *           properties:
+ *             solution:
+ *               type: array
+ *               items:
+ *                 type: string
+ *           required:
+ *             - solution
+ *         description:
+ *           type: string
+ *           description: The description of the post
+ *         tags:
+ *           type: array
+ *           items:
+ *             type: string
+ *
+ *       example:
+ *         username: Ret Alm
+ *         pgn: "d4 Nf6 Nf3 g6 Nc3 d6 e4 c5 Be3 cxd4 Bxd4 Nc6 Be3 Qa5 Bd2 Bg7 Be2 O-O O-O Qb6 Rb1 Bg4"
+ *         puzzle:
+ *           solution: ["e1e7", "f4f6", "e7f6"]
+ *         description: "description"
+ *         tags: ["Long", "tag1"]
+ *
+ *     PostGet:
+ *       type: object
+ *       required:
+ *         - username
+ *         - pgn
+ *         - puzzle
+ *         - description
+ *         - tags
  *       properties:
  *         id:
  *           type: integer
@@ -30,38 +77,14 @@
  *           required:
  *             - solution
  *
- *       example:
- *         username: Ret Alm
- *         pgn: "d4 Nf6 Nf3 g6 Nc3 d6 e4 c5 Be3 cxd4 Bxd4 Nc6 Be3 Qa5 Bd2 Bg7 Be2 O-O O-O Qb6 Rb1 Bg4"
- *         puzzle:
- *           solution: ["e1e7", "f4f6", "e7f6"]
- *     PostGet:
- *       type: object
- *       required:
- *         - username
- *         - pgn
- *         - puzzle
- *       properties:
- *         id:
- *           type: integer
- *           description: The auto-generated id of the post
- *           readOnly: true
- *         username:
+ *         description:
  *           type: string
- *           description: The username the post
- *         pgn:
- *           type: string
- *           description: The pgn of the post
- *         puzzle:
- *           type: object
- *           description: The post solution
- *           properties:
- *             solution:
- *               type: array
- *               items:
- *                 type: string
- *           required:
- *             - solution
+ *           description: The description of the post
+ *         tags:
+ *           type: array
+ *           items:
+ *             type: string
+ *
  *
  *       example:
  *         id: 1
@@ -69,7 +92,8 @@
  *         pgn: "d4 Nf6 Nf3 g6 Nc3 d6 e4 c5 Be3 cxd4 Bxd4 Nc6 Be3 Qa5 Bd2 Bg7 Be2 O-O O-O Qb6 Rb1 Bg4"
  *         puzzle:
  *           solution: ["e1e7", "f4f6", "e7f6"]
- *
+ *         description: "description"
+ *         tags: ["Long", "tag1"]
  */
 
 /**

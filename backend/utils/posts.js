@@ -2,34 +2,43 @@ const books = [
   {
     id: 1,
     username: "Cagnus Marlsen",
-    pgn: "d4 Nf6 Nf3 g6 Nc3 d6 e4 c5 Be3 cxd4 Bxd4 Nc6 Be3 Qa5 Bd2 Bg7 Be2 O-O O-O Qb6 Rb1 Bg4 h3 Bxf3 Bxf3 Nd4 Be3 Nxf3+ Qxf3 Qc6 Bd4 a6 Bxf6 Bxf6 Nd5 Qxc2 Nxf6+ exf6 Qxf6 Qxe4 Qxd6 Rad8 Qb6 Rfe8 Rfe1 Qxe1+ Rxe1 Rxe1+ Kh2 Rd2 Kg3 Ree2 Qxb7 Rxb2 Qxa6 Rxa2 Qc8+ Kg7 Qc3+ Kg8 Qc5 Rxf2 Qc8+ Kg7 Qc3+ Kh6 Qe3+ Kg7 Qe5+ Kf8 Qh8+ Ke7 Qe5+ Kf8 Qb8+ Kg7 Qe5+ f6 Qe7+ Kh6 Qf8+ Kg5 h4+ Kh5 Qc5+ f5 Qc1 Rxg2+ Kh3 Rh2+ Kg3 Rag2+ Kf3 Rg4 Qd1 Rhxh4 Kf2 Rh2+ Kf3 Rh3+ Ke2 Rg2+ Kf1+ Rg4 Kf2 g5 Qd8 h6 Qe8+ Kh4 Kf1 h5 Qe1+ Rhg3 Qe5 f4 Qe1 f3 Kf2 Rf4 Qh1+ Rh3 Qe1 g4",
+    pgn: "g3 d6 Bg2 g6 d3 Bg7 Nc3 Nf6 e4 O-O h3 e5 Be3 c6 Qd2 b5 Nf3 Re8 g4 b4 Ne2 a5 Ng3 d5 O-O dxe4 dxe4 Qxd2 Nxd2 Ba6 Rfd1 Nbd7 Nb3 a4 Nc5 Nxc5 Bxc5 Rab8 b3 a3 Bf1 Bc8 f3 Be6 c3 bxc3 Rac1 Nd7 Bd6 Rb7 Rxc3 Bf8 Bxf8 Kxf8 Rdc1 c5 Nf5 gxf5 gxf5 Bxf5 exf5 Ke7 Rc4 Kf6 Ra4 Rc7 Rxa3 Nb6 Ra6 Rb8 Bd3 Kg5 Kf2 Nd5 Rg1+ Kh5 Rg7 h6 Rh7 Nf4 Raxh6+ Kg5 Bf1 c4 Bxc4 Rxc4",
     puzzle: {
-      solution: ["e1e7", "f4f6", "e7f6"],
+      solution: ["h3h4", "g5f5", "h7f7"],
     },
+    description: "Find the best move for white",
+    tags: ["Mate in 2", "Endgame", "Short"],
   },
   {
     id: 2,
     username: "Nans Hiemann",
-    pgn: "e4 c6 f4 d5 exd5 cxd5 Nf3 Nc6 d3 Nf6 Be2 Qc7 O-O e5 fxe5 Nxe5 Nxe5 Qxe5 Bf4 Qxb2 Nd2 Bc5+ Kh1 O-O Nb3 Bb6 Bd6 Rd8 Be7 Rd7 Bxf6 gxf6 Rf3 Rc7 Rg3+ Kh8 Bh5 Bf5 Bxf7 Rxf7 Qh5 Be6 Re1 Re7 Qh6 Bf2 Rxe6 Bxg3",
+    pgn: "e4 e5 Nf3 Nc6 Bb5 d6 O-O a6 Ba4 b5 Bb3 Bg4 h3 Bh5 d3 Nd4 Be3 Bxf3 gxf3 c6 f4 Nf6 Nc3 h6 Bxd4 exd4 Ne2 c5 e5 dxe5 fxe5 Nh7 Re1 Be7 Nf4 O-O e6 f6 Ng6 Re8 Qg4 Qc7 Qf3 Ng5 Qg4 c4 dxc4 bxc4 h4 cxb3 hxg5 fxg5 Qf3 bxc2 Qf7+ Kh7 Rac1 d3 Qf5 d2",
     puzzle: {
-      solution: ["e6e7", "b2b1", "b3c1", "b1c1", "h6c1"],
+      solution: ["g6f8", "h7g8", "f5h7", "g8f8", "h7h8"],
     },
+    description:
+      "This problem took me a long time to solve! White to move and win",
+    tags: ["Sacrifice", "Middlegame", "Mate in 3", "Double check"],
   },
   {
     id: 3,
     username: "Fobby Bischer",
-    pgn: "e4 c5 Nf3 d6 c3 Nf6 d3 a6 Nbd2 e6 Be2 Be7 O-O Nc6 Nb3 O-O Bg5 Qc7 Bxf6 Bxf6 d4 cxd4 Nfxd4 Nxd4 Nxd4 d5 exd5 exd5 Nf3 Be6 Nd4 Bd7 Bg4 Bxg4 Qxg4 Qe5 Qf5 Qd6 Rfd1 Bd8 Nf3 Qb6 b3 Bf6 Rac1 Rac8 Qxd5 Rxc3 Rxc3 Bxc3 Qd3 Bf6 Qd6",
+    pgn: "d4 b6 e4 Bb7 Bd3 c6 c4 e6 Nc3 d6 Nf3 Be7 O-O Nf6 Re1 O-O Qc2 g6 Bh6 Re8 h3 Nh5 d5 cxd5 cxd5 exd5 exd5 Bf6 Rxe8+ Qxe8 Re1 Qd7 Qe2 Bxc3 Qe8+ Qxe8",
     puzzle: {
       solution: ["f8d8", "d6d8", "f6d8"],
     },
+    description: "Very easy puzzle",
+    tags: ["Mate in 1", "Kingside attack"],
   },
   {
     id: 4,
     username: "Karry Gasparov",
-    pgn: "e4 e5 d3 Nc6 Nf3 Bc5 Be2 Nf6 O-O O-O c3 a6 b4 Ba7 a4 Ne7 Ba3 Re8 c4 Ng6 g3 d6 a5 Bh3 Re1 Ng4 c5 dxc5 bxc5 b6 Nfd2 bxc5",
+    pgn: "e4 e6 d4 c5 Nf3 cxd4 Nxd4 Nf6 Nc3 Bb4 f3 Bxc3+ bxc3 O-O Nb5 Qb6 Ba3 Re8 Nd6",
     puzzle: {
-      solution: ["e2g4", "h3g4", "d1g4"],
+      solution: ["b6e3", "f1e2", "e3c3"],
     },
+    description: "This happened in one of my games. Black to play",
+    tags: ["Advantage", "Opening"],
   },
 ];
 
