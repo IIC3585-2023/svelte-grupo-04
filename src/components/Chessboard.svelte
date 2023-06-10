@@ -57,11 +57,11 @@
             
     }
 
-    
-    // watch, dont remove
-    $: {
-        // re-render the board when the position changes
-    }
+
+    // watch
+    // $: {
+    // //     re-render the board when the position changes
+    // }
 </script>
 
 <div>
