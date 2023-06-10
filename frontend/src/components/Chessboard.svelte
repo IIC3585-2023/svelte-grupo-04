@@ -16,10 +16,13 @@
 
     function handleDragStart(event) {
         currSourceSquare = event.target.dataset.square;
+        event.toElement.style.left = 700;
+        console.log(event);
     }
-
+    
     function handleDragOver(event) {
         event.preventDefault();
+
     }
 
     function handleDrop(event) {
