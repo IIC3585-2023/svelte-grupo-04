@@ -124,7 +124,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // Arrays y objetos para almacenar los datos de los usuarios
-const users = require("../util/users");
+const users = require("../utils/users");
 let last_id = 4;
 
 // Ruta GET para obtener la lista de usuarios
