@@ -10,7 +10,7 @@
    <nav class="navbar">
     <div class="navbar-links" >
       <a class="navbar-title"  href="/">
-        <i class="fas fa-chess"></i> TactiChess
+        <i class="fas fa-chess"></i> InstaChess
       </a>
       <a href="/puzzles">
         <i class="fas fa-puzzle-piece"></i>
