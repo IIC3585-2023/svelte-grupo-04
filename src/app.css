@@ -47,7 +47,17 @@ input {
   border-radius: 8px;
   border: 1px solid #777;
   background-color: #444;
-  padding: 0.6em 1.2em;
+  padding: 0.6em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  transition: all 0.2s ease-in-out;
+}
+
+textarea {
+  border-radius: 8px;
+  border: 1px solid #777;
+  background-color: #444;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
