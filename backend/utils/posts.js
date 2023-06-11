@@ -25,7 +25,7 @@ const books = [
     username: "Fobby Bischer",
     pgn: "d4 b6 e4 Bb7 Bd3 c6 c4 e6 Nc3 d6 Nf3 Be7 O-O Nf6 Re1 O-O Qc2 g6 Bh6 Re8 h3 Nh5 d5 cxd5 cxd5 exd5 exd5 Bf6 Rxe8+ Qxe8 Re1 Qd7 Qe2 Bxc3 Qe8+ Qxe8",
     puzzle: {
-      solution: ["f8d8", "d6d8", "f6d8"],
+      solution: ["e1e8"],
     },
     description: "very easy puzzle hehehe 😎😎😎😎😎😎",
     tags: ["Mate in 1", "Kingside attack"],
