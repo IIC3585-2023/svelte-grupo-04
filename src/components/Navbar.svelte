@@ -6,31 +6,73 @@
         localStorage.removeItem("content")
         navigate("/")
   }
-  
 </script> 
-   <div class="navbar">
-    <a class="navbar-title"  href="/">
-        Website
-    </a>
+   <nav class="navbar">
+    <div class="navbar-links" >
+      <a class="navbar-title"  href="/">
+        <i class="fas fa-chess"></i> TactiChess
+      </a>
+      <a href="/puzzles">
+        <i class="fas fa-puzzle-piece"></i>
+        Puzzles
+      </a>
+       <a href="/stockfish">
+        <i class="fas fa-robot"></i>
+        Stockfish
+      </a>
+       {#if $store}
+       <a href="/new_post">
+        <i class="fas fa-plus"></i>
+        New post
+      </a>
+        {/if}
+      </div>
      <div class="navbar-links" >
-       <a href="/puzzles"> Puzzles </a>
-       <a href="/stockfish"> Stockfish </a>
        {#if $store === null}
-        <a href="/login"> Login </a>
+        <a href="/login">
+          <i class="fas fa-sign-in-alt"></i>
+          Login
+        </a>
        {:else}
-       <a href="/new_post"> New post </a>
-       <a href="" on:click={logout}>Logout</a>
+          <button on:click={logout}>
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+          </button>
        {/if}
      </div>
-   </div>
+   </nav>
    
    
-   <style>
-     .navbar {
+<style scoped>
+    @import url('https://use.fontawesome.com/releases/v5.0.13/css/all.css');
+
+    button {
+      all: unset;
+    }
+
+    a, button {
+      cursor: pointer;
+      text-decoration: none;
+      color: #fafafa;
+      font-weight: 600;
+      padding: 15px 20px;
+    }
+
+    a:hover, button:hover {
+      color: #cacaca;
+      background-color: #2a2926;
+    }
+
+    .navbar-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .navbar {
        display: flex;
        align-items: center;
-       justify-content: space-between;
+       justify-content: space-around;
        width: 100%;
-       top:0;
+       background-color: #373531;
      }
-   </style>
+</style>
