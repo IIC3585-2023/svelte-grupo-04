@@ -3,7 +3,11 @@
   import Home from './pages/Home.svelte';
   import Puzzles from './pages/Puzzles.svelte';
   import Login from './pages/Login.svelte';
+  import Navbar from './components/Navbar.svelte';
 </script>
+
+<Navbar/>
+
 
 <Router>
   <Route path="/" component={Home} />
