@@ -1,8 +1,12 @@
 // src/stores/content.js
 import { writable } from "svelte/store";
 
-const stored = localStorage.content;
+const stored = localStorage.getItem("content");
 
 export const store = writable(stored || null);
 
-store.subscribe((value) => (localStorage.content = value));
+store.subscribe((value) => {
+  if (value !== null) {
+    localStorage.setItem("content", value);
+  }
+});
