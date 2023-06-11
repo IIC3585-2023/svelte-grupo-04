@@ -10,7 +10,7 @@
    <nav class="navbar">
     <div class="navbar-links" >
       <a class="navbar-title"  href="/">
-        <i class="fas fa-chess"></i> TactiChess
+        <i class="fas fa-chess"></i> InstaChess
       </a>
       <a href="/puzzles">
         <i class="fas fa-puzzle-piece"></i>
@@ -44,7 +44,6 @@
    
    
 <style scoped>
-    @import url('https://use.fontawesome.com/releases/v5.0.13/css/all.css');
 
     button {
       all: unset;
@@ -68,8 +67,18 @@
       font-weight: 700;
     }
 
+    .navbar-links {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-around;
+    }
+
     .navbar {
        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
        align-items: center;
        justify-content: space-around;
        width: 100%;

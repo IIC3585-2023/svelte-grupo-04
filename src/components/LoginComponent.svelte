@@ -30,20 +30,64 @@
 </script>
 
 <form on:submit|preventDefault={login} class="flex mx-auto col-6">
-
-	<div >
-		<label for="username" >Username</label>
+	<div class="box">
+		<label for="username">
+			<i class="fas fa-user"></i>
+			Username
+		</label>
 		<input id="username" bind:value={username} />
 	</div>
 
-	<div >
-		<label for="password" >Password</label>
+	<div class="box">
+		<label for="password">
+			<i class="fas fa-lock"></i>
+			Password
+		</label>
 		<input type="password"  id="password" bind:value={password} />
 	</div>
 
-	<button type="submit" >Submit</button>
+	<button type="submit" >Login</button>
 	<div id="error_message" >
 		<small>{error}</small>
 	</div>
 
 </form>
+
+<style scoped>
+
+	#error_message {
+		color: red;
+	}
+
+	.box {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		justify-content: start;
+		gap: 10px;
+	}
+
+	label {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: start;
+		gap: 10px;
+
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		background-color: #262421;
+		gap: 10px;
+		padding: 40px;
+		margin: 50px 0;
+		border-radius: 0.5rem;
+	}
+
+	button {
+		margin: 20px 0;
+	}
+
+</style>
