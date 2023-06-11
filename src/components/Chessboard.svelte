@@ -5,7 +5,12 @@
 
     // props
     export let pgn = null;
+    export let fen = null;
     export let key = Math.random().toString(36).substring(7);
+
+    if (pgn && fen) {
+        throw new Error('You can only pass one of pgn or fen');
+    }
 
     // variables
     let chess = new Chess();
@@ -13,6 +18,9 @@
     if (pgn) {
         chess.loadPgn(pgn);
         lastMove = chess.history({verbose: true}).slice(-1)[0];
+    }
+    else if (fen) {
+        chess.load(fen);
     }
     else {
     }
@@ -84,8 +92,10 @@
         event.preventDefault();
         const sourceSquare = currSourceSquare;
         const targetSquare = event.target.dataset.square;
-        // console.log(sourceSquare, targetSquare)
-        // Perform move validation and update the chess position accordingly
+        makeMove(sourceSquare, targetSquare);
+    }
+
+    function makeMove(sourceSquare, targetSquare) {
         try {
 
             const move = chess.move({
@@ -95,6 +105,7 @@
             });
             // After the move, update the component's position and re-render
             position = chess.board();
+            fen = chess.fen();
             currentTurn = chess.turn();
             const squares = document.querySelectorAll(`.square-${key}`);
             if (lastMove) {
@@ -102,8 +113,6 @@
             }
             lastMove = chess.history({verbose: true}).slice(-1)[0];
             highLightSquares(squares, [lastMove.from, lastMove.to]);
-
-
             if (pointOfView === 'b'){
                 position = position.map((row) => row.reverse()).reverse();
             }
@@ -114,7 +123,6 @@
             console.log("Invalid move");
             console.log(e);
         }
-            
     }
 
     // onMount
@@ -127,8 +135,14 @@
     });
 
     // watch
-    // $: {
-    //     }
+    $: {
+        // if fen changes, update the position
+        if (fen) {
+            chess.load(fen);
+            position = chess.board();
+            currentTurn = chess.turn();
+        }
+    }
 
 </script>
 

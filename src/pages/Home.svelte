@@ -7,7 +7,7 @@
     async function getPosts() {
         const response = await fetch('https://sveltebackendv2.onrender.com/posts')
         postsData = await response.json();
-        // console.log(postsData[0])
+        console.log(postsData[0])
 	}
     getPosts()
 </script>
