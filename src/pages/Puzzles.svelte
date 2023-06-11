@@ -3,7 +3,6 @@
     import Chessboard from "../components/Chessboard.svelte"
 </script>
 
-<Navbar></Navbar>
 <div>
     <Chessboard/>
 </div>
