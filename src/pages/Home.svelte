@@ -1,5 +1,4 @@
 <script>
-    import Navbar from '../components/Navbar.svelte';
     import Chessboard from '../components/Chessboard.svelte';
 
 
@@ -15,11 +14,16 @@
 
 <main>
     {#each postsData as post, index (post.id)}
-        <h2>{post.username}</h2>
-        <h2>{post.description}</h2>
-        <Chessboard pgn={post.pgn} />
-        <h2>{post.tags}</h2>
-        
+    <div class="container">
+        <h3>{post.username}</h3>
+        <p>{post.description}</p>
+        <Chessboard pgn={post.pgn} key={index.toString()}/>
+        <div class="tags-container">
+            {#each post.tags as tag}
+                <span class="tag">{tag}</span>
+            {/each}
+        </div>
+    </div>
     {/each}
 </main>
 
@@ -30,12 +34,32 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        gap: 20px;
     }
     .container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: #444;
+        padding: 10px;
+    }
+
+    .tags-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+
+    .tag {
+        background-color: #333;
+        font-size: small;
+        border-radius: 5px;
+        padding: 5px;
+        margin: 10px 5px;
     }
 
 </style>
