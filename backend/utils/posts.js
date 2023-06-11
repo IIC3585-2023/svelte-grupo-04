@@ -6,7 +6,7 @@ const books = [
     puzzle: {
       solution: ["h3h4", "g5f5", "h7f7"],
     },
-    description: "Find the best move for white",
+    description: "Find the best move for white 🧠🧠",
     tags: ["Mate in 2", "Endgame", "Short"],
   },
   {
@@ -17,7 +17,7 @@ const books = [
       solution: ["g6f8", "h7g8", "f5h7", "g8f8", "h7h8"],
     },
     description:
-      "This problem took me a long time to solve! White to move and win",
+      "this problem took me a long time to solve :(( white to move and win",
     tags: ["Sacrifice", "Middlegame", "Mate in 3", "Double check"],
   },
   {
@@ -27,7 +27,7 @@ const books = [
     puzzle: {
       solution: ["f8d8", "d6d8", "f6d8"],
     },
-    description: "Very easy puzzle",
+    description: "very easy puzzle hehehe 😎😎😎😎😎😎",
     tags: ["Mate in 1", "Kingside attack"],
   },
   {
@@ -37,7 +37,7 @@ const books = [
     puzzle: {
       solution: ["b6e3", "f1e2", "e3c3"],
     },
-    description: "This happened in one of my games. Black to play",
+    description: "This happened in one of my games. Black to play 🤔",
     tags: ["Advantage", "Opening"],
   },
 ];
