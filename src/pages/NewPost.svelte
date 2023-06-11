@@ -37,7 +37,6 @@
 </script>
 
 
-<Navbar></Navbar>
 <div>
     <form on:submit|preventDefault={sendNewPost} class="flex mx-auto col-6">
         <div>

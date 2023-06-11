@@ -2,11 +2,9 @@
     import Chessboard from "../components/Chessboard.svelte";
     import { Chess } from 'chess.js';
 
-    let currentFen = "rnbqkbnr/p1p1pppp/8/1p6/2pP4/4P3/PP3PPP/RNBQKBNR w KQkq - 0 4";
+    let currentFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
     let chess = new Chess(currentFen);
     const playerColor = chess.turn();
-
-    const STOCKFISH = new Worker('stockfish.js');
 
 
     async function getStockfishMove(fen) {
@@ -30,6 +28,12 @@
 
 </script>
 
-<div>
+<div class="container">
     <Chessboard bind:fen={currentFen} />
 </div>
+
+<style scoped>
+    .container {
+        margin: 40px 0;
+    }
+</style>

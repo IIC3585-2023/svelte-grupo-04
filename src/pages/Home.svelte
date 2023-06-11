@@ -34,15 +34,17 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 20px;
+        width: 100%;
     }
     .container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background-color: #444;
+        background-color: #262421;
         padding: 10px;
+        margin: 20px 0;
+        border-radius: 0.5rem;
     }
 
     .tags-container {
