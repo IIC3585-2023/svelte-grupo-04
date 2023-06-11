@@ -33,7 +33,7 @@ const options = {
     },
     servers: [
       {
-        url: "https://sveltebackendv2.onrender.com/",
+        url: "http://localhost:3000",
       },
     ],
   },
