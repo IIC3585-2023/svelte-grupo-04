@@ -1,6 +1,4 @@
 <script>
-    import Navbar from '../components/Navbar.svelte';
-    import Chessboard from "../components/Chessboard.svelte"
 	import { store } from '../hooks/auth';
     import { navigate } from 'svelte-routing'
 

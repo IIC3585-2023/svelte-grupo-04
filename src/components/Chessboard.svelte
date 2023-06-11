@@ -7,6 +7,9 @@
     export let pgn = null;
     export let fen = null;
     export let key = Math.random().toString(36).substring(7);
+    export let correctPuzzleMove = null;
+    export let reset = false;
+    export let isGameStopped = false;
 
     if (pgn && fen) {
         throw new Error('You can only pass one of pgn or fen');
@@ -36,6 +39,40 @@
 
 
     // methods
+
+
+    function resetComponent() {
+        const squares = document.querySelectorAll(`.square-${key}`);
+        if (lastMove) {
+            highLightSquares(squares, [lastMove.from, lastMove.to], 'remove');
+        }
+        chess = new Chess();
+        lastMove = null;
+        position = [];
+        fen = null;
+        currentTurn = null;
+        pointOfView = null;
+        currSourceSquare = null;
+        audio_move.pause();
+        audio_move.currentTime = 0;
+        isGameStopped = false;
+
+        if (pgn) {
+            chess.loadPgn(pgn);
+            lastMove = chess.history({ verbose: true }).slice(-1)[0];
+        } else if (fen) {
+            chess.load(fen);
+        }
+
+        position = chess.board();
+        currentTurn = chess.turn();
+        pointOfView = currentTurn;
+        if (pointOfView === 'b') {
+            position = position.map((row) => row.reverse()).reverse();
+        }
+
+        highLightSquares(squares, [lastMove?.from, lastMove?.to]);
+  }
 
     const getNumCoordsBySquare = (square) => {
         let file = square.charCodeAt(0) - 97;
@@ -92,12 +129,11 @@
         event.preventDefault();
         const sourceSquare = currSourceSquare;
         const targetSquare = event.target.dataset.square;
-        makeMove(sourceSquare, targetSquare);
+        dropPiece(sourceSquare, targetSquare);
     }
 
     function makeMove(sourceSquare, targetSquare) {
         try {
-
             const move = chess.move({
                 from: sourceSquare,
                 to: targetSquare,
@@ -118,12 +154,32 @@
             }
 
             audio_move.play();
+            return 1;
         }
         catch (e) {
             console.log("Invalid move");
             console.log(e);
+            return 0;
         }
     }
+
+    function dropPiece(sourceSquare, targetSquare) {
+        const isValid = makeMove(sourceSquare, targetSquare)
+        // se puede mover esto a puzzle pero lo hago aqui, mas rapido
+        if (correctPuzzleMove && isValid) {
+            let {isCorrect, isSolved, answerSourceSquare, answerTargetSquare } = correctPuzzleMove(sourceSquare, targetSquare)
+            if (isCorrect) {
+                makeMove(answerSourceSquare, answerTargetSquare)
+            }
+            else {
+                isGameStopped = true;
+            }
+            if (isSolved){
+                isGameStopped = true;
+            }
+        }
+    }
+
 
     // onMount
 
@@ -137,16 +193,23 @@
     // watch
     $: {
         // if fen changes, update the position
+        if (reset) {
+            resetComponent();
+            reset = false;
+        }
         if (fen) {
             chess.load(fen);
             position = chess.board();
+            if (pointOfView === 'b'){
+                position = position.map((row) => row.reverse()).reverse();
+            }
             currentTurn = chess.turn();
         }
     }
 
 </script>
 
-<div>
+<div class="game-container">
     <div class="chessboard">
         <!-- iterate in position -->
         <!-- rotate board -->
@@ -168,9 +231,9 @@
                 <img src={piecesjson[squareData.type + squareData.color]}
                 data-square="{getSquareByNumCoords(j, i)}"
                 alt=""
-                class="piece {currentTurn === squareData.color ? 'draggable' : ''}"
+                class="piece {currentTurn === squareData.color && !isGameStopped ? 'draggable' : ''}"
                 on:dragstart={handleDragStart}
-                draggable="{currentTurn === squareData.color}"
+                draggable="{currentTurn === squareData.color && !isGameStopped }"
                 />
             {/if}
 
