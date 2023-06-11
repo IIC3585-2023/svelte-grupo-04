@@ -8,5 +8,7 @@ export const store = writable(stored || null);
 store.subscribe((value) => {
   if (value !== null) {
     localStorage.setItem("content", value);
+  } else {
+    localStorage.removeItem("content");
   }
 });

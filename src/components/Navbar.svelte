@@ -3,7 +3,7 @@
 	import { store } from '../hooks/auth';
   import { navigate } from 'svelte-routing'
   async function logout() {
-        localStorage.removeItem("content")
+        $store = null
         navigate("/")
   }
 </script> 
