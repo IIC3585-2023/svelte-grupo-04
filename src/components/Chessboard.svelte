@@ -259,8 +259,15 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-        border: 4px solid #634b37;
     }
+
+    @media (max-width: 600px) {
+        .chessboard {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
     .square {
         width: 100%;
         height: 100%;
