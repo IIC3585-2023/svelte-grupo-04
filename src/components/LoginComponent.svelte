@@ -22,24 +22,27 @@
             $store = username
             navigate('/')
         }
+		else {
+            error = "Bad username or password"
+        }
 	}
 
 </script>
 
 <form on:submit|preventDefault={login} class="flex mx-auto col-6">
 
-	<div class="mb-3">
-		<label for="username" class="form-label">Username</label>
-		<input class="form-control" id="username" bind:value={username} />
+	<div >
+		<label for="username" >Username</label>
+		<input id="username" bind:value={username} />
 	</div>
 
-	<div class="mb-3">
-		<label for="password" class="form-label">Password</label>
-		<input type="password" class="form-control" id="password" bind:value={password} />
+	<div >
+		<label for="password" >Password</label>
+		<input type="password"  id="password" bind:value={password} />
 	</div>
 
-	<button type="submit" class="btn btn-primary">Submit</button>
-	<div id="error_message" class="text-danger">
+	<button type="submit" >Submit</button>
+	<div id="error_message" >
 		<small>{error}</small>
 	</div>
 
