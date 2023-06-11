@@ -10,5 +10,7 @@
     "rw": "https://upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg",
     "bw": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Chess_blt45.svg",
     "nw": "https://upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg",
-    "pw": "https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg"
+    "pw": "https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg",
+    "audio_move": "http://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/move-self.mp3",
+    "audio_capture": "http://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/capture.mp3"
 }
