@@ -247,7 +247,6 @@
 
 
 
-
 <style>
     .chessboard {
         display: grid;
