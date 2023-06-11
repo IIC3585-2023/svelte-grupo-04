@@ -7,6 +7,7 @@
     export let pgn = null;
     export let fen = null;
     export let key = Math.random().toString(36).substring(7);
+    export let correctPuzzleMove = null;
 
     if (pgn && fen) {
         throw new Error('You can only pass one of pgn or fen');
@@ -92,12 +93,11 @@
         event.preventDefault();
         const sourceSquare = currSourceSquare;
         const targetSquare = event.target.dataset.square;
-        makeMove(sourceSquare, targetSquare);
+        dropPiece(sourceSquare, targetSquare);
     }
 
     function makeMove(sourceSquare, targetSquare) {
         try {
-
             const move = chess.move({
                 from: sourceSquare,
                 to: targetSquare,
@@ -118,10 +118,28 @@
             }
 
             audio_move.play();
+            return 1;
         }
         catch (e) {
             console.log("Invalid move");
             console.log(e);
+            return 0;
+        }
+    }
+
+    function dropPiece(sourceSquare, targetSquare) {
+        const isValid = makeMove(sourceSquare, targetSquare)
+        if (correctPuzzleMove && isValid) {
+            let {isCorrect, isSolved, answerSourceSquare, answerTargetSquare } = correctPuzzleMove(sourceSquare, targetSquare)
+            if (isCorrect) {
+                makeMove(answerSourceSquare, answerTargetSquare)
+            }
+            else {
+                console.log("Incorrecto")
+            }
+            if (isSolved){
+                console.log("Solved")
+            }
         }
     }
 

@@ -1,6 +1,4 @@
 <script>
-    import Navbar from '../components/Navbar.svelte';
-    import Chessboard from "../components/Chessboard.svelte"
 	import { store } from '../hooks/auth';
     import { navigate } from 'svelte-routing'
 
@@ -37,7 +35,6 @@
 </script>
 
 
-<Navbar></Navbar>
 <div>
     <form on:submit|preventDefault={sendNewPost} class="flex mx-auto col-6">
         <div>
