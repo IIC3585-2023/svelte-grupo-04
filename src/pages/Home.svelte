@@ -1,5 +1,5 @@
 <script>
-    import Puzzles from './Puzzles.svelte';
+    import Puzzle from '../components/Puzzle.svelte'
 
 
     let postsData = [];
@@ -17,7 +17,7 @@
     <div class="container">
         <h3>{post.username}</h3>
         <p>{post.description}</p>
-        <Puzzles pgn={post.pgn} key={index.toString()} solution={post.puzzle.solution}/>
+        <Puzzle pgn={post.pgn} key={index.toString()} solution={post.puzzle.solution}/>
         <div class="tags-container">
             {#each post.tags as tag}
                 <span class="tag">{tag}</span>
