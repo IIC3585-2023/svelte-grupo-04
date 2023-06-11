@@ -14,6 +14,7 @@
     </a>
      <div class="navbar-links" >
        <a href="/puzzles"> Puzzles </a>
+       <a href="/stockfish"> Stockfish </a>
        {#if $store === null}
         <a href="/login"> Login </a>
        {:else}
