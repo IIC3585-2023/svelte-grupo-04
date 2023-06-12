@@ -35,10 +35,6 @@
     <div>
         <div class="container">
             {#if pgnData === ''}
-                <!-- <p>Loading...</p> -->
-                <!-- <LoadingSpin className="custom-class" /> -->
-                <!-- <LoadingSpin style="margin: 6rem 0" /> -->
-                <!-- <div style="margin: 6rem 0"><LoadingSpin /> </div> -->
                 <div class="loading-spinner"></div>
             {:else}
                 <Puzzle pgn={pgnData} key={randomPuzzle.toString()} solution={solutionData}/>
