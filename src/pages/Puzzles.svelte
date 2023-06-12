@@ -3,40 +3,50 @@
     import Puzzle from '../components/Puzzle.svelte'
     import { onMount } from 'svelte';
 
-    let randomPuzzle = puzzleIds[Math.floor(Math.random() * puzzleIds.length)];
+    let randomPuzzle;
     let postsData = [];
-    let pgnData;
-    let solutionData;
+    let pgnData = "";
+    let solutionData = "";
     let tagsData = [];
 
-    async function getPosts() {
+    async function getPuzzle() {
+        randomPuzzle = puzzleIds[Math.floor(Math.random() * puzzleIds.length)];
         const response = await fetch(`https://lichess.org/api/puzzle/${randomPuzzle}`)
         postsData = await response.json();
         pgnData = postsData["game"]["pgn"];
         solutionData = postsData["puzzle"]["solution"]
         tagsData = postsData["puzzle"]["themes"];
 	}
+
+    function handleClick() {
+        postsData = [];
+        tagsData = [];
+        pgnData = "";
+        solutionData = "";
+        getPuzzle();
+    }
     onMount(async () => {
-        await getPosts();
+
+        await getPuzzle();
     });
 </script>
 
 <main>
     <div>
-        <h1>Aqui deben haber puzzles random</h1>
         <div class="container">
-            {#await getPosts()}
+            {#if pgnData === ''}
                 <p>Loading...</p>
-            {:then}
+            {:else}
                 <Puzzle pgn={pgnData} key={randomPuzzle.toString()} solution={solutionData}/>
                 <div class="tags-container">
                     {#each tagsData as tag}
                         <span class="tag">{tag}</span>
                     {/each}
+                    <button class="button-random" on:click={handleClick}>
+                        Get Other Puzzle
+                    </button>
                 </div>
-            {:catch error}
-                <p>Error: {error.message}</p>
-            {/await}
+            {/if}
         </div>
     </div>
 </main>
@@ -75,6 +85,25 @@
         border-radius: 5px;
         padding: 5px;
         margin: 10px 5px;
+    }
+
+    .button-random {
+    justify-self: auto;
+    /* background-color: rgb(49, 166, 216); */
+    background-color: #333;
+    color: white;
+    width: 100%;
+    padding: 3px 0;
+    margin: 0.5rem 0;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    }
+    .button-random:hover {
+    filter: brightness(1.2);
+    }
+
+    .button-random:focus {
+    outline: none;
     }
 
 </style>
