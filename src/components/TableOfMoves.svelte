@@ -3,6 +3,8 @@
 
   export let history = [];
   let movesArray = [];
+  let init_pgn = '[White "Player"]\n[Black "Stockfish (depth 10)"]\n';
+  let pgn = "";
 
   const SYMBOLS = {
     N: "♞",
@@ -26,6 +28,17 @@
     return newArray;
   }
 
+  function transformArrayToPGN(array) {
+    let pgn = "";
+    for (let i = 0; i < array.length; i++) {
+      if (i % 2 === 0) {
+        pgn += `${Math.floor(i / 2) + 1}. `;
+      }
+      pgn += `${array[i]} `;
+    }
+    return pgn;
+  }
+
   function transformNotation(move) {
     if (move === undefined) {
       return "";
@@ -43,26 +56,39 @@
     }
     return newMove;
   }
+
+  function putInClipBoard() {
+    navigator.clipboard.writeText(init_pgn + pgn);
+  }
+
   onMount(() => {
     movesArray = transformMovesInArray(history);
+    pgn = transformArrayToPGN(history);
   });
 
   $: {
     movesArray = transformMovesInArray(history);
+    pgn = transformArrayToPGN(history);
   }
 </script>
 
-<table>
-  <tbody>
-    {#each movesArray as move, index}
-      <tr>
-        <td class="td-num">{index + 1}</td>
-        <td class="td-move">{move.white}</td>
-        <td class="td-move">{move.black}</td>
-      </tr>
-    {/each}
-  </tbody>
-</table>
+<div class="moves-table">
+  <table>
+    <tbody>
+      {#each movesArray as move, index}
+        <tr>
+          <td class="td-num">{index + 1}</td>
+          <td class="td-move">{move.white}</td>
+          <td class="td-move">{move.black}</td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+  <button on:click={putInClipBoard}>
+    <i class="fas fa-copy"></i>
+    Copy PGN to Clipboard
+  </button>
+</div>
 
 <style scoped>
   table {
@@ -70,6 +96,18 @@
     border-collapse: collapse;
     margin: 2%;
     max-width: 100px;
+  }
+
+  button {
+    margin-top: 10px;
+    position: relative;
+    width: 200px;
+  }
+
+  .moves-table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .td-num {
