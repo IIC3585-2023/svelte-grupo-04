@@ -143,7 +143,6 @@
  *                 $ref: '#/components/schemas/PostGet'
  *       500:
  *         description: Some server error
- *
  * /posts/{id}/like:
  *   post:
  *     summary: Give a like to a post
@@ -155,6 +154,18 @@
  *           type: integer
  *         required: true
  *         description: The ID of the post to like
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: integer
+ *                 description: The ID of the user who is giving the like
+ *             example:
+ *               userId: 1
  *     responses:
  *       200:
  *         description: The post was liked successfully
@@ -172,18 +183,51 @@
  *           type: integer
  *         required: true
  *         description: The ID of the post to unlike
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: integer
+ *                 description: The ID of the user who is removing the like
+ *             example:
+ *               userId: 1
  *     responses:
  *       200:
  *         description: The like was removed successfully
  *       404:
  *         description: The post with the specified ID was not found or it has no likes
+ *
+ * /posts/likes/{user_id}:
+ *   get:
+ *     summary: Get the IDs of likes given by a user
+ *     tags: [Posts]
+ *     parameters:
+ *       - in: path
+ *         name: user_id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The ID of the user
+ *     responses:
+ *       200:
+ *         description: The list of post IDs liked by the user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: integer
+ *       404:
+ *         description: The user with the specified ID was not found or has no likes
  */
 
 const express = require("express");
 const router = express.Router();
 const bodyParser = require("body-parser");
-const fs = require("fs");
-const path = require("path");
 
 const app = express();
 
@@ -191,24 +235,11 @@ const app = express();
 app.use(bodyParser.json());
 
 // Arrays y objects para almacenar los datos
-const puzzles = require("../utils/posts");
+let puzzles = require("../utils/posts");
+let likes = require("../utils/likes");
+
 let last_id =
   puzzles.reduce((max, post) => (post.id > max ? post.id : max), 0) + 1;
-
-const filePath = path.join(__dirname, "../utils/posts.js");
-
-// Function to save the posts array to the file
-function savePostsToFile() {
-  const content = `module.exports = ${JSON.stringify(puzzles, null, 2)};\n`;
-
-  fs.writeFile(filePath, content, "utf8", (err) => {
-    if (err) {
-      console.error("Error writing file:", err);
-    } else {
-      console.log("Posts saved to file.");
-    }
-  });
-}
 
 // Ruta GET para recibir los posts
 router.get("/", (req, res) => {
@@ -221,17 +252,17 @@ router.post("/", (req, res) => {
   const new_puzzle = Object.assign({ id: last_id }, puzzle);
   last_id = last_id + 1;
   puzzles.push(new_puzzle);
-  savePostsToFile();
   res.sendStatus(200);
 });
 
 // Ruta POST para dar like a un post
 router.post("/:id/like", (req, res) => {
   const postId = parseInt(req.params.id);
+  const userId = req.body.userId; // Obtener el ID del usuario del cuerpo de la solicitud
   const post = puzzles.find((puzzle) => puzzle.id === postId);
   if (post) {
     post.likes = post.likes ? post.likes + 1 : 1;
-    savePostsToFile();
+    likes.push({ user_id: userId, post_id: postId }); // Agregar el like a la lista de likes
     res.sendStatus(200);
   } else {
     res.sendStatus(404);
@@ -241,14 +272,24 @@ router.post("/:id/like", (req, res) => {
 // Ruta POST para remover like de un post
 router.post("/:id/unlike", (req, res) => {
   const postId = parseInt(req.params.id);
+  const userId = req.body.userId; // Obtener el ID del usuario del cuerpo de la solicitud
   const post = puzzles.find((puzzle) => puzzle.id === postId);
   if (post && post.likes && post.likes > 0) {
     post.likes--;
-    savePostsToFile();
+    likes = likes.filter(
+      (like) => !(like.user_id === userId && like.post_id === postId)
+    ); // Remover el like de la lista de likes
     res.sendStatus(200);
   } else {
     res.sendStatus(404);
   }
+});
+
+router.get("/likes/:user_id", (req, res) => {
+  const userId = parseInt(req.params.user_id);
+  const userLikes = likes.filter((like) => like.user_id === userId);
+  const postIds = userLikes.map((like) => like.post_id);
+  res.json(postIds);
 });
 
 module.exports = router;

@@ -8,7 +8,7 @@ module.exports = [
     },
     description: "Find the best move for white 🧠🧠",
     tags: ["Mate in 2", "Endgame", "Short"],
-    likes: 5,
+    likes: 2,
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ module.exports = [
     description:
       "this problem took me a long time to solve :(( white to move and win",
     tags: ["Sacrifice", "Middlegame", "Mate in 3", "Double check"],
-    likes: 7,
+    likes: 3,
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ module.exports = [
     },
     description: "very easy puzzle hehehe 😎😎😎😎😎😎",
     tags: ["Mate in 1", "Kingside attack"],
-    likes: 5,
+    likes: 1,
   },
   {
     id: 4,
@@ -42,6 +42,6 @@ module.exports = [
     },
     description: "This happened in one of my games. Black to play 🤔",
     tags: ["Advantage", "Opening"],
-    likes: 2,
+    likes: 1,
   },
 ];
