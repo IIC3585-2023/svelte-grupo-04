@@ -11,6 +11,7 @@
     export let reset = false;
     export let isGameStopped = false;
     export let chess = new Chess();
+    export let history = [];
     export function makeMove(sourceSquare, targetSquare) {
         try {
             const move = chess.move({
@@ -41,6 +42,18 @@
             return 0;
         }
     }
+    export function restartGame() {
+        chess.reset();
+        position = chess.board();
+        fen = chess.fen();
+        currentTurn = chess.turn();
+        history = [];
+        lastMove = null;
+        removeAllHighlights();
+        if (pointOfView === 'b'){
+            position = position.map((row) => row.reverse()).reverse();
+        }
+    }
 
 
     // check props
@@ -52,6 +65,7 @@
     let lastMove = null;
     if (pgn) {
         chess.loadPgn(pgn);
+        history = chess.history();
         lastMove = chess.history({verbose: true}).slice(-1)[0];
     }
     else if (fen) {
@@ -105,6 +119,14 @@
 
         highLightSquares(squares, [lastMove?.from, lastMove?.to]);
   }
+
+    const removeAllHighlights = () => {
+        const squares = document.querySelectorAll(`.square-${key}`);
+        for (let i = 0; i < squares.length; i++) {
+            squares[i].classList.remove('light-highlighted');
+            squares[i].classList.remove('dark-highlighted');
+        }
+    }
 
     const getNumCoordsBySquare = (square) => {
         let file = square.charCodeAt(0) - 97;
@@ -200,6 +222,7 @@
         }
 
         if (chess) {
+            history = history.concat(chess.history());
             chess = chess;
         }
 
