@@ -10,13 +10,45 @@
     export let correctPuzzleMove = null;
     export let reset = false;
     export let isGameStopped = false;
+    export let chess = new Chess();
+    export function makeMove(sourceSquare, targetSquare) {
+        try {
+            const move = chess.move({
+                from: sourceSquare,
+                to: targetSquare,
+                promotion: 'q' // always promote to a queen for example simplicity
+            });
+            // After the move, update the component's position and re-render
+            position = chess.board();
+            fen = chess.fen();
+            currentTurn = chess.turn();
+            const squares = document.querySelectorAll(`.square-${key}`);
+            if (lastMove) {
+                highLightSquares(squares, [lastMove.from, lastMove.to], 'remove');
+            }
+            lastMove = chess.history({verbose: true}).slice(-1)[0];
+            highLightSquares(squares, [lastMove.from, lastMove.to]);
+            if (pointOfView === 'b'){
+                position = position.map((row) => row.reverse()).reverse();
+            }
 
+            audio_move.play();
+            return 1;
+        }
+        catch (e) {
+            // console.log("Invalid move");
+            // console.log(e);
+            return 0;
+        }
+    }
+
+
+    // check props
     if (pgn && fen) {
         throw new Error('You can only pass one of pgn or fen');
     }
 
     // variables
-    let chess = new Chess();
     let lastMove = null;
     if (pgn) {
         chess.loadPgn(pgn);
@@ -132,36 +164,6 @@
         dropPiece(sourceSquare, targetSquare);
     }
 
-    function makeMove(sourceSquare, targetSquare) {
-        try {
-            const move = chess.move({
-                from: sourceSquare,
-                to: targetSquare,
-                promotion: 'q' // always promote to a queen for example simplicity
-            });
-            // After the move, update the component's position and re-render
-            position = chess.board();
-            fen = chess.fen();
-            currentTurn = chess.turn();
-            const squares = document.querySelectorAll(`.square-${key}`);
-            if (lastMove) {
-                highLightSquares(squares, [lastMove.from, lastMove.to], 'remove');
-            }
-            lastMove = chess.history({verbose: true}).slice(-1)[0];
-            highLightSquares(squares, [lastMove.from, lastMove.to]);
-            if (pointOfView === 'b'){
-                position = position.map((row) => row.reverse()).reverse();
-            }
-
-            audio_move.play();
-            return 1;
-        }
-        catch (e) {
-            console.log("Invalid move");
-            console.log(e);
-            return 0;
-        }
-    }
 
     function dropPiece(sourceSquare, targetSquare) {
         const isValid = makeMove(sourceSquare, targetSquare)
@@ -192,11 +194,15 @@
 
     // watch
     $: {
-        // if fen changes, update the position
         if (reset) {
             resetComponent();
             reset = false;
         }
+
+        if (chess) {
+            chess = chess;
+        }
+
         if (fen) {
             chess.load(fen);
             position = chess.board();
