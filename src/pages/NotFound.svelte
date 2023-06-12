@@ -4,7 +4,7 @@
 
 <div class="container">
   <h1>What are you doing here? 🤔</h1>
-  <h3>You don't have permission to access this page 🤕.</h3>
+  <h3>You don't have permission to access this page 🤕</h3>
   <h4>
     Go back to
     <button>

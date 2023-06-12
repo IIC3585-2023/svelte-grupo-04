@@ -2,6 +2,7 @@
   import { Chess } from "chess.js";
   import piecesjson from "../utils/pieces.json";
   import { onMount } from "svelte";
+  import DragDropTouch from "svelte-drag-drop-touch";
 
   // props
   export let pgn = null;
@@ -32,7 +33,6 @@
       if (pointOfView === "b") {
         position = position.map((row) => row.reverse()).reverse();
       }
-
       audio_move.play();
       return 1;
     } catch (e) {
@@ -174,6 +174,15 @@
 
   function handleDragStart(event) {
     currSourceSquare = event.target.dataset.square;
+
+    // if window is not mobile
+    if (typeof screen.orientation === "undefined") {
+      // center image on cursor
+      const img = new Image();
+      img.src = event.target.src;
+      img.width = 50;
+      event.dataTransfer.setDragImage(img, 25, 25);
+    }
   }
 
   function handleDragOver(event) {
@@ -183,6 +192,7 @@
   function handleDrop(event) {
     event.preventDefault();
     const sourceSquare = currSourceSquare;
+    // get targetSquare by position of cursor
     const targetSquare = event.target.dataset.square;
     dropPiece(sourceSquare, targetSquare);
   }
@@ -255,11 +265,17 @@
             </span>
           {/if}
           {#if squareData}
+            <!-- if piece is king add class king -->
             <img
               src={piecesjson[squareData.type + squareData.color]}
               data-square={getSquareByNumCoords(j, i)}
               alt=""
-              class="piece {currentTurn === squareData.color && !isGameStopped
+              class="piece {(chess.isCheck() || chess.isCheckmate()) &&
+              squareData.type === 'k' &&
+              squareData.color === currentTurn
+                ? 'check-shadow'
+                : ''}
+              {currentTurn === squareData.color && !isGameStopped
                 ? 'draggable'
                 : ''}"
               on:dragstart={handleDragStart}
@@ -318,6 +334,10 @@
 
   .draggable:active {
     cursor: grabbing;
+  }
+
+  .check-shadow {
+    filter: drop-shadow(0 0 0.6rem #ff0000);
   }
 
   .dark {
