@@ -1,16 +1,17 @@
 <script>
-  import { Router, Route } from 'svelte-routing';
-  import Home from './pages/Home.svelte';
-  import Puzzles from './pages/Puzzles.svelte';
-  import Login from './pages/Login.svelte';
-  import PlayStockfish from './pages/PlayStockfish.svelte';
-  import Navbar from './components/Navbar.svelte';
-  import NewPost from './pages/NewPost.svelte';
-  import NotFound from './pages/NotFound.svelte';
-  import { store } from './hooks/auth';
+  import { Router, Route } from "svelte-routing";
+  import Home from "./pages/Home.svelte";
+  import Puzzles from "./pages/Puzzles.svelte";
+  import Login from "./pages/Login.svelte";
+  import PlayStockfish from "./pages/PlayStockfish.svelte";
+  import Navbar from "./components/Navbar.svelte";
+  import NewPost from "./pages/NewPost.svelte";
+  import NotFound from "./pages/NotFound.svelte";
+  import { store } from "./hooks/auth";
+  import Pwa from "./components/Pwa.svelte";
 </script>
 
-<Navbar/>
+<Navbar />
 
 <Router>
   <Route path="/" component={Home} />
@@ -18,8 +19,10 @@
   <Route path="/stockfish" component={PlayStockfish} />
   <Route path="/login" component={Login} />
   {#if $store !== null}
-  <Route path="/new_post" component={NewPost} />
+    <Route path="/new_post" component={NewPost} />
   {:else}
-  <Route path="/new_post" component={NotFound} />
+    <Route path="/new_post" component={NotFound} />
   {/if}
 </Router>
+
+<Pwa />
