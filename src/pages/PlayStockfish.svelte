@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import Chessboard from "../components/Chessboard.svelte";
+    import TableOfMoves from "../components/TableOfMoves.svelte";
     import { Chess } from 'chess.js';
 
     import stockfish_img from "../assets/stockfish_img.png";
@@ -10,6 +11,7 @@
     let currentFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
     let game = new Chess(currentFen);
+    let history = game.history({ verbose: true });
     let playerColor = game.turn();
 
     const stockfish = new Worker("stockfish.js");
@@ -35,8 +37,8 @@
         }
     };
 
+
     $ : {
-        
         if (!game.isGameOver() && game.turn() !== playerColor) {
             prepareMove(game.fen());
         }
@@ -58,7 +60,14 @@
         
     </div>
     <div class="border">
-        <Chessboard bind:this={chessboard} bind:chess={game} />
+        <Chessboard bind:this={chessboard} bind:chess={game} bind:history={history} />
+    </div>
+    <div class="bottom-section">
+        <TableOfMoves bind:history={history} />
+        <button on:click={chessboard.restartGame}>
+            <i class="fas fa-undo"></i>
+            Restart Game
+        </button>
     </div>
 </div>
 
@@ -92,6 +101,24 @@
         border-radius: 5px;
         padding: 5px;
         margin: 10px 5px;
+    }
+
+    button {
+        margin: 20px 0;
+    }
+
+    @media (max-width: 768px) {
+        button {
+            width: 100px;
+        }
+    }
+
+    .bottom-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: start;
+        padding: 20px 0;
     }
 
 </style>
