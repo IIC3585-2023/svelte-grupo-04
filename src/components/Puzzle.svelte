@@ -73,7 +73,6 @@
     flex-direction: column;
     flex-wrap: wrap;
     position: relative;
-    width: 100%;
 }
 
 .size-piece {

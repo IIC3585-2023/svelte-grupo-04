@@ -289,6 +289,10 @@
         user-select: none;
     }
 
+    .game-container {
+        border: 4px solid #6c513b;
+    }
+
     @media (max-width: 600px) {
         .chessboard {
             width: 100%;

@@ -59,9 +59,7 @@
         <img src={wasm_img} alt="wasm" width="40px" height="40px" />
         
     </div>
-    <div class="border">
-        <Chessboard bind:this={chessboard} bind:chess={game} bind:history={history} />
-    </div>
+    <Chessboard bind:this={chessboard} bind:chess={game} bind:history={history} />
     <div class="bottom-section">
         <TableOfMoves bind:history={history} />
         <button on:click={chessboard.restartGame}>
@@ -77,10 +75,6 @@
         background-color: #262421;
         padding: 20px;
         border-radius: 5px;
-    }
-
-    .border {
-        border: 4px solid #6c513b;
     }
 
     img {
