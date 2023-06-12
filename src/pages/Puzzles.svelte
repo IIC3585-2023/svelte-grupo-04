@@ -35,7 +35,11 @@
     <div>
         <div class="container">
             {#if pgnData === ''}
-                <p>Loading...</p>
+                <!-- <p>Loading...</p> -->
+                <!-- <LoadingSpin className="custom-class" /> -->
+                <!-- <LoadingSpin style="margin: 6rem 0" /> -->
+                <!-- <div style="margin: 6rem 0"><LoadingSpin /> </div> -->
+                <div class="loading-spinner"></div>
             {:else}
                 <Puzzle pgn={pgnData} key={randomPuzzle.toString()} solution={solutionData}/>
                 <div class="tags-container">
@@ -105,5 +109,22 @@
     .button-random:focus {
     outline: none;
     }
+
+    .loading-spinner {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid #ccc;
+    border-top-color: #333;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }}
 
 </style>
