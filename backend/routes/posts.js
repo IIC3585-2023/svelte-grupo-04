@@ -251,6 +251,7 @@ router.post("/", (req, res) => {
   const puzzle = req.body;
   const new_puzzle = Object.assign({ id: last_id }, puzzle);
   last_id = last_id + 1;
+  new_puzzle.likes = 0;
   puzzles.push(new_puzzle);
   res.sendStatus(200);
 });
