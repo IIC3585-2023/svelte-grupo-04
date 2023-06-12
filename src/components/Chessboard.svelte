@@ -255,7 +255,6 @@
         <div
           class="square square-{key} {getSquareColor(j, i)}"
           data-square={getSquareByNumCoords(j, i)}
-          draggable="false"
           on:dragover={handleDragOver}
           on:drop={handleDrop}
         >
@@ -319,6 +318,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    -webkit-user-drag: none;
   }
 
   .piece {
