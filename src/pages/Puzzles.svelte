@@ -1,5 +1,5 @@
 <script>
-    import {puzzleIds} from '../utils/puzzles.js';
+    import puzzleIds from '../utils/puzzles.json';
     import Puzzle from '../components/Puzzle.svelte'
     import { onMount } from 'svelte';
 
@@ -10,7 +10,7 @@
     let tagsData = [];
 
     async function getPuzzle() {
-        randomPuzzle = puzzleIds[Math.floor(Math.random() * puzzleIds.length)];
+        randomPuzzle = puzzleIds["puzzleIds"][Math.floor(Math.random() * puzzleIds["puzzleIds"].length)];
         const response = await fetch(`https://lichess.org/api/puzzle/${randomPuzzle}`)
         postsData = await response.json();
         pgnData = postsData["game"]["pgn"];

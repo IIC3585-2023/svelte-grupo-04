@@ -1,4 +1,4 @@
-export const puzzleIds = [
+{"puzzleIds": [
   "00008",
   "0000D",
   "0009B",
@@ -33,7 +33,6 @@ export const puzzleIds = [
   "00G0z",
   "00Fyu",
   "00FPo",
-  "00FON",
-];
-
-// module.exports = puzzleIds;
+  "00FON"
+]
+}
