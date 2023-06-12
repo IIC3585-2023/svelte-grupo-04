@@ -20,7 +20,6 @@
  *           description: The password of the user
  *
  *       example:
- *         id: 1
  *         username: "Ret Alm"
  *         password: "password"
  *     User:
@@ -38,7 +37,6 @@
  *           description: The password of the user
  *
  *       example:
- *         id: 1
  *         username: "Ret Alm"
  *         password: "password"
  *
@@ -125,7 +123,7 @@ app.use(bodyParser.json());
 
 // Arrays y objetos para almacenar los datos de los usuarios
 const users = require("../utils/users");
-let last_id = 4;
+let last_id = 5;
 
 // Ruta GET para obtener la lista de usuarios
 router.get("/", (req, res) => {
@@ -142,7 +140,7 @@ router.post("/register", (req, res) => {
   };
   last_id++;
   users.push(newUser);
-  res.status(200).json(newUser);
+  res.status(200).json({ user: newUser }); // Send user information in response
 });
 
 // Ruta POST para iniciar sesión de un usuario
@@ -152,7 +150,7 @@ router.post("/login", (req, res) => {
     (user) => user.username === username && user.password === password
   );
   if (user) {
-    res.sendStatus(200);
+    res.status(200).json({ user }); // Send user information in response
   } else {
     res.sendStatus(401);
   }

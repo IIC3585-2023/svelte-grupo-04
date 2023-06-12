@@ -1,8 +1,8 @@
 const users = [
-  { username: "CagnusMarlsen", password: "password" },
-  { username: "NansHiemann", password: "password" },
-  { username: "FobbyBischer", password: "password" },
-  { username: "KarryGasparov", password: "password" },
+  { id: 1, username: "CagnusMarlsen", password: "password" },
+  { id: 2, username: "NansHiemann", password: "password" },
+  { id: 3, username: "FobbyBischer", password: "password" },
+  { id: 4, username: "KarryGasparov", password: "password" },
 ];
 
 module.exports = users;
