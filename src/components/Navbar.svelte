@@ -83,5 +83,8 @@
        justify-content: space-around;
        width: 100%;
        background-color: #373531;
+      /* box shadow */
+      box-shadow: inset 0px -10px 10px 0px rgba(0,0,0,0.1), 0px 0px 10px 0px rgba(0,0,0,0.75);
+       
      }
 </style>
