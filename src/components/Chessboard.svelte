@@ -176,7 +176,7 @@
     currSourceSquare = event.target.dataset.square;
 
     // if window is not mobile
-    if (typeof screen.orientation === "undefined") {
+    if (typeof screen.orientation !== "undefined") {
       // center image on cursor
       const img = new Image();
       img.src = event.target.src;
