@@ -8,6 +8,7 @@
 
   async function logout() {
     $store = null;
+    localStorage.removeItem("userId");
     navigate("/");
   }
 

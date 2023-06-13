@@ -92,7 +92,7 @@
   .text {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     flex-direction: column;
     font-size: 0.9rem;
   }
