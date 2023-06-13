@@ -1,8 +1,11 @@
+<script context="module">
+  // import DragDropTouch from "svelte-drag-drop-touch";
+</script>
+
 <script>
   import { Chess } from "chess.js";
   import piecesjson from "../utils/pieces.json";
   import { onMount } from "svelte";
-  import DragDropTouch from "svelte-drag-drop-touch";
 
   // props
   export let pgn = null;

@@ -1,39 +1,40 @@
 <script>
-    import { construct_svelte_component } from 'svelte/internal';
-	import { store } from '../hooks/auth';
-    import { navigate } from 'svelte-routing'
+  import { construct_svelte_component } from "svelte/internal";
+  import { store } from "../hooks/auth";
+  import { navigate } from "svelte-routing";
 
-	let username = '';
-	let password = '';
-	let error = ''
+  let username = "";
+  let password = "";
+  let error = "";
 
-	async function login() {
-        const response = await fetch('https://sveltebackendv2.onrender.com/users/login', {
-            method: 'POST',
-            headers: {
-                'Accept': '*/*',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })
-            })
-        if (response.status === 200){
-			saveID(response)
-            $store = username
-            navigate('/')
-        }
-		else {
-            error = "Bad username or password"
-        }
-	}
+  async function login() {
+    const response = await fetch(
+      "https://sveltebackendv2.onrender.com/users/login",
+      {
+        method: "POST",
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      }
+    );
+    if (response.status === 200) {
+      saveID(response);
+      navigate("/");
+    } else {
+      error = "Bad username or password";
+    }
+  }
 
-	async function saveID(response){
-		const data = await response.json();
-		localStorage.setItem('userId', data.user.id)
-	}
-
+  async function saveID(response) {
+    const data = await response.json();
+    localStorage.setItem("userId", data.user.id);
+    $store = username;
+  }
 </script>
 
 <form on:submit|preventDefault={login} class="flex mx-auto col-6">

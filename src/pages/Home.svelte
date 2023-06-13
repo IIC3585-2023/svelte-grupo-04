@@ -1,10 +1,9 @@
 <script>
   import Puzzle from "../components/Puzzle.svelte";
+  import { store } from "../hooks/auth";
 
   let postsData = [];
-
-  const userId = parseInt(localStorage.getItem("userId"));
-  console.log(userId);
+  let userId = localStorage.getItem("userId");
   let postsLiked = [];
   if (userId) {
     checkLikes(userId);
@@ -13,7 +12,7 @@
   async function getPosts() {
     const response = await fetch("https://sveltebackendv2.onrender.com/posts");
     postsData = await response.json();
-    // console.log(postsData)
+    postsData = postsData.reverse();
   }
   getPosts();
 
@@ -31,7 +30,6 @@
   }
 
   async function deleteLike(postId) {
-    changeLikesShowing(postId, "down");
     const response = await fetch(
       `https://sveltebackendv2.onrender.com/posts/${postId}/unlike`,
       {
@@ -41,7 +39,7 @@
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: userId,
+          userId: parseInt(userId),
         }),
       }
     );
@@ -49,12 +47,10 @@
       console.log("disliked");
     } else {
       console.log("error");
-      changeLikesShowing(postId, "up");
     }
   }
 
   async function giveLike(postId) {
-    changeLikesShowing(postId, "up");
     const response = await fetch(
       `https://sveltebackendv2.onrender.com/posts/${postId}/like`,
       {
@@ -72,7 +68,6 @@
       console.log("like");
     } else {
       console.log("error");
-      changeLikesShowing(postId, "down");
     }
   }
 
@@ -82,41 +77,64 @@
     if (upOrDown === "down") {
       postsLiked.pop();
       likes.innerHTML = (parseInt(likes.innerHTML) - 1).toString();
-      button.innerHTML = "Like";
+      button.innerHTML = `<i class="far fa-heart"></i>`;
       return;
     }
     postsLiked.push(postId);
     likes.innerHTML = (parseInt(likes.innerHTML) + 1).toString();
-    button.innerHTML = "Dislike";
+    button.innerHTML = `<i class="fas fa-heart" style="color:red;"></i>`;
   }
 
   function giveOrDeleteLike(postId) {
     if (postsLiked.includes(postId)) {
+      changeLikesShowing(postId, "down");
       deleteLike(postId);
     } else {
+      changeLikesShowing(postId, "up");
       giveLike(postId);
     }
   }
 
+  $: {
+    if ($store) {
+      userId = localStorage.getItem("userId");
+      checkLikes(userId);
+      getPosts();
+    }
+    if ($store === null) {
+      userId = null;
+      postsLiked = [];
+      getPosts();
+    }
+  }
 </script>
 
 <main>
   {#each postsData as post, index (post.id)}
     <div class="container">
-      <div class="user-container">
-        <span class="username">{post.username}</span>
-        <p>{post.description}</p>
+      <div class="upper-container">
+        <section class="user-container">
+          <span class="username">{post.username}</span>
+          <p>{post.description}</p>
+        </section>
+        <section class="like-section">
+          <button
+            class="like-button likes-button-id-{post.id}"
+            on:click={() => giveOrDeleteLike(post.id)}
+            disabled={$store === null}
+          >
+            {#if postsLiked.includes(post.id)}
+              <i class="fas fa-heart" style="color:red;" />
+            {:else}
+              <i class="far fa-heart" />
+            {/if}
+          </button>
+          <div class="tag">
+            +<span class="number-likes likes-id-{post.id}">{post.likes}</span>
+          </div>
+        </section>
       </div>
-      <span class="number-likes likes-id-{post.id}">{post.likes}</span>
-      <span>Likes</span>
-      <button class="likes-button-id-{post.id}" on:click={() => giveOrDeleteLike(post.id)} disabled={!userId}>
-        {#if postsLiked.includes(post.id)}
-          Dislike
-        {:else}
-          Like
-        {/if}
-      </button>
-      
+
       <Puzzle
         pgn={post.pgn}
         key={index.toString()}
@@ -148,7 +166,7 @@
 
   .username,
   p {
-    padding: 0 10px;
+    text-align: justify;
   }
 
   .user-container {
@@ -169,6 +187,8 @@
     padding: 20px;
     margin: 20px 0;
     border-radius: 0.5rem;
+    max-width: 500px;
+    box-shadow: inset 0 0 5px #000000;
   }
 
   @media (max-width: 768px) {
@@ -192,5 +212,27 @@
     border-radius: 5px;
     padding: 5px;
     margin: 10px 5px;
+  }
+
+  .upper-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .like-button {
+    all: unset;
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+  .like-button:active {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 0.2rem red);
+  }
+
+  .like-section {
+    padding-left: 50px;
   }
 </style>
