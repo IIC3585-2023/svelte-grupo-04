@@ -75,7 +75,7 @@
     const likes = document.querySelector(`.likes-id-${postId}`);
     const button = document.querySelector(`.likes-button-id-${postId}`);
     if (upOrDown === "down") {
-      postsLiked.pop();
+      postsLiked.splice(postsLiked.indexOf(postId), 1);
       likes.innerHTML = (parseInt(likes.innerHTML) - 1).toString();
       button.innerHTML = `<i class="far fa-heart"></i>`;
       return;
@@ -86,6 +86,7 @@
   }
 
   function giveOrDeleteLike(postId) {
+    console.log(postsLiked)
     if (postsLiked.includes(postId)) {
       changeLikesShowing(postId, "down");
       deleteLike(postId);
