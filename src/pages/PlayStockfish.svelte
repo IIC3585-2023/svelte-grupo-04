@@ -11,9 +11,9 @@
   import draw_gif from "../assets/draw.gif";
 
   let chessboard;
-  let currentFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+  const initFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
-  let game = new Chess(currentFen);
+  let game = new Chess(initFen);
   let history = game.history();
   let playerColor = game.turn();
   const textsOverlay = {
@@ -37,9 +37,13 @@
   let currentOverlayText = textsOverlay.loss;
   let overlayShowing = false;
 
-  function restart() {
+  function restart(color) {
+    if (color !== playerColor) {
+      chessboard.flipBoard();
+    }
     chessboard.restartGame();
     overlayShowing = false;
+    playerColor = color;
   }
 
   const stockfish = new Worker("stockfish.js");
@@ -58,10 +62,7 @@
     if (event.data.includes("bestmove")) {
       try {
         const bestMove = event.data.split(" ")[1];
-        const move = chessboard.makeMove(
-          bestMove.slice(0, 2),
-          bestMove.slice(2, 4)
-        );
+        chessboard.makeMove(bestMove.slice(0, 2), bestMove.slice(2, 4));
       } catch (e) {}
     }
   };
@@ -106,10 +107,16 @@
   <Chessboard bind:this={chessboard} bind:chess={game} bind:history />
   <div class="bottom-section">
     <TableOfMoves {history} />
-    <button on:click={restart}>
-      <i class="fas fa-undo" />
-      Restart Game
-    </button>
+    <div class="buttons-restart">
+      <button on:click={() => restart("w")}>
+        <i class="fas fa-undo" />
+        Restart as White
+      </button>
+      <button on:click={() => restart("b")}>
+        <i class="fas fa-undo" />
+        Restart as Black
+      </button>
+    </div>
   </div>
 </div>
 
@@ -178,10 +185,6 @@
     margin: 10px 5px;
   }
 
-  button {
-    margin: 20px 0;
-  }
-
   @media (max-width: 768px) {
     button {
       width: 100px;
@@ -194,5 +197,14 @@
     justify-content: space-around;
     align-items: start;
     padding: 20px 0;
+  }
+
+  .buttons-restart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 20px 0;
   }
 </style>

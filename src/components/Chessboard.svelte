@@ -1,5 +1,5 @@
 <script context="module">
-  // import DragDropTouch from "svelte-drag-drop-touch";
+  import DragDropTouch from "svelte-drag-drop-touch";
 </script>
 
 <script>
@@ -55,6 +55,10 @@
     if (pointOfView === "b") {
       position = position.map((row) => row.reverse()).reverse();
     }
+  }
+  export function flipBoard() {
+    pointOfView = pointOfView === "w" ? "b" : "w";
+    position = position.map((row) => row.reverse()).reverse();
   }
 
   // check props
@@ -176,7 +180,7 @@
   }
 
   function handleDragStart(event) {
-    currSourceSquare = event.target.dataset.square;
+    currSourceSquare = getSquareByNumCoords(...event.target.dataset.square.split("").map((el) => parseInt(el)));
 
     // if window is not mobile
     if (typeof screen.orientation !== "undefined") {
@@ -196,7 +200,7 @@
     event.preventDefault();
     const sourceSquare = currSourceSquare;
     // get targetSquare by position of cursor
-    const targetSquare = event.target.dataset.square;
+    const targetSquare = getSquareByNumCoords(...event.target.dataset.square.split("").map((el) => parseInt(el)));
     dropPiece(sourceSquare, targetSquare);
   }
 
@@ -257,20 +261,20 @@
       {#each row as squareData, j}
         <div
           class="square square-{key} {getSquareColor(j, i)}"
-          data-square={getSquareByNumCoords(j, i)}
+          data-square={`${j}${i}`}
           on:dragover={handleDragOver}
           on:drop={handleDrop}
         >
           {#if i === 7 || j === 7}
             <span class="label-coord">
-              {getLabel(j, i)}
+              {(pointOfView === "b")?  getLabel(j, i) : getLabel(j, i)}
             </span>
           {/if}
           {#if squareData}
             <!-- if piece is king add class king -->
             <img
               src={piecesjson[squareData.type + squareData.color]}
-              data-square={getSquareByNumCoords(j, i)}
+              data-square={`${j}${i}`}
               alt=""
               class="piece {(chess.isCheck() || chess.isCheckmate()) &&
               squareData.type === 'k' &&
