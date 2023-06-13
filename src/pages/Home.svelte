@@ -103,8 +103,10 @@
 <main>
   {#each postsData as post, index (post.id)}
     <div class="container">
-      <h3>{post.username}</h3>
-      <p>{post.description}</p>
+      <div class="user-container">
+        <span class="username">{post.username}</span>
+        <p>{post.description}</p>
+      </div>
       <span class="number-likes likes-id-{post.id}">{post.likes}</span>
       <span>Likes</span>
       <button class="likes-button-id-{post.id}" on:click={() => giveOrDeleteLike(post.id)} disabled={!userId}>
@@ -114,6 +116,7 @@
           Like
         {/if}
       </button>
+      
       <Puzzle
         pgn={post.pgn}
         key={index.toString()}
@@ -136,15 +139,42 @@
     justify-content: center;
     width: 100%;
   }
+
+  .username {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .username,
+  p {
+    padding: 0 10px;
+  }
+
+  .user-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: 100%;
+    padding: 15px 0;
+  }
+
   .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: #262421;
-    padding: 10px;
+    padding: 20px;
     margin: 20px 0;
     border-radius: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 20px 10px;
+    }
   }
 
   .tags-container {
@@ -157,14 +187,6 @@
   }
 
   .tag {
-    background-color: #333;
-    font-size: small;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 10px 5px;
-  }
-
-  .tag-likes {
     background-color: #333;
     font-size: small;
     border-radius: 5px;
