@@ -50,7 +50,7 @@
 
   <div>
     <label for="solution">Solution (csv format)</label>
-    <textarea id="solution" bind:value={solution} />
+    <input type="text" id="solution" bind:value={solution} />
   </div>
 
   <div>
