@@ -86,7 +86,6 @@
   }
 
   function giveOrDeleteLike(postId) {
-    console.log(postsLiked)
     if (postsLiked.includes(postId)) {
       changeLikesShowing(postId, "down");
       deleteLike(postId);
@@ -227,7 +226,13 @@
     all: unset;
     cursor: pointer;
     font-size: 1.5rem;
+    transition: all 0.1s ease-in-out;
   }
+
+  .like-button:hover {
+    filter: drop-shadow(0 0 0.2rem red);
+  }
+
   .like-button:active {
     transform: scale(1.1);
     filter: drop-shadow(0 0 0.2rem red);
