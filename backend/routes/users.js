@@ -123,7 +123,7 @@ app.use(bodyParser.json());
 
 // Arrays y objetos para almacenar los datos de los usuarios
 const users = require("../utils/users");
-let last_id = 5;
+let last_id = 7;
 
 // Ruta GET para obtener la lista de usuarios
 router.get("/", (req, res) => {

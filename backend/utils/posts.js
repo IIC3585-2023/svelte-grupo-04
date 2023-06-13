@@ -44,4 +44,27 @@ module.exports = [
     tags: ["Advantage", "Opening"],
     likes: 1,
   },
+  {
+    id: 5,
+    username: "Nikaru Hakamura",
+    pgn: "e4 d5 exd5 Qxd5 Nc3 Qa5 Bc4 c6 d3 Nf6 Bd2 Qc7 Nf3 Bg4 h3 Bh5 g4 Bg6 Qe2 Nbd7 O-O-O e6 Kb1 O-O-O Nh4 Bd6 a3 Kb8 Rdf1 Bf4 Be1 Ne5 Ba2 Nxd3 Nxg6 Nc1 Qf3 hxg6 Bc4 g5 a4 Qe5 Nd1 Qe4 Qxe4 Nxe4 Ne3 Rd4 Kxc1 Rxc4 Kb1 Rd4 Ng2 Rd1+ Ka2 Be5 h4 gxh4 Rxh4 Rhd8 Rhh1 Kc7",
+    puzzle: {
+      solution: ["e1a5", "b7b6", "f1d1"],
+    },
+    description:
+      "It's easy guys just eat the juicer and then takes takes takes",
+    tags: ["Discovered attack", "Master"],
+    likes: 0,
+  },
+  {
+    id: 6,
+    username: "Miku Hatsune",
+    pgn: "d4 Nf6 Nf3 g6 Nc3 d6 e4 c5 Be3 cxd4 Bxd4 Nc6 Be3 Qa5 Bd2 Bg7 Be2 O-O O-O Qb6 Rb1 Bg4 h3 Bxf3 Bxf3 Nd4 Be3 Nxf3+ Qxf3 Qc6 Bd4 a6 Bxf6 Bxf6 Nd5 Qxc2 Nxf6+ exf6 Qxf6 Qxe4 Qxd6 Rad8 Qb6 Rfe8 Rfe1 Qxe1+ Rxe1 Rxe1+ Kh2 Rd2 Kg3 Ree2 Qxb7 Rxb2 Qxa6 Rxa2 Qc8+ Kg7 Qc3+ Kg8 Qc5 Rxf2 Qc8+ Kg7 Qc3+ Kh6 Qe3+ Kg7 Qe5+ Kf8 Qh8+ Ke7 Qe5+ Kf8 Qb8+ Kg7 Qe5+ f6 Qe7+ Kh6 Qf8+ Kg5 h4+ Kh5 Qc5+ f5 Qc1 Rxg2+ Kh3 Rh2+ Kg3 Rag2+ Kf3 Rg4 Qd1 Rhxh4 Kf2 Rh2+ Kf3 Rh3+ Ke2 Rg2+ Kf1+ Rg4 Kf2 g5 Qd8 h6 Qe8+ Kh4 Kf1 h5 Qe1+ Rhg3 Qe5 f4 Qe1 f3 Kf2 Rf4 Qh1+ Rh3 Qe1 g4",
+    puzzle: {
+      solution: ["e1e7", "f4f6", "e7f6"],
+    },
+    description: "Study your patterns ☝️🥸",
+    tags: ["Short", "Endgame"],
+    likes: 1,
+  },
 ];
