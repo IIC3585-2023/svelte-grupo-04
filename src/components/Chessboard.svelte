@@ -181,7 +181,8 @@
 
   function handleDragStart(event) {
     currSourceSquare = getSquareByNumCoords(...event.target.dataset.square.split("").map((el) => parseInt(el)));
-
+    // disappear image when dragging
+    event.target.style.opacity = 0;
     // if window is not mobile
     if (typeof screen.orientation !== "undefined") {
       // center image on cursor
@@ -190,6 +191,10 @@
       img.width = 50;
       event.dataTransfer.setDragImage(img, 25, 25);
     }
+  }
+
+  function handleDragEnd(event) {
+    event.target.style.opacity = 1;
   }
 
   function handleDragOver(event) {
@@ -285,6 +290,7 @@
                 ? 'draggable'
                 : ''}"
               on:dragstart={handleDragStart}
+              on:dragend={handleDragEnd}
               draggable={currentTurn === squareData.color && !isGameStopped}
             />
           {/if}
