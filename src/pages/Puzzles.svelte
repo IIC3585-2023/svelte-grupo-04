@@ -26,7 +26,6 @@
         getPuzzle();
     }
     onMount(async () => {
-
         await getPuzzle();
     });
 </script>
