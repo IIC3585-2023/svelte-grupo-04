@@ -7,6 +7,7 @@
   import Navbar from "./components/Navbar.svelte";
   import NewPost from "./pages/NewPost.svelte";
   import NotFound from "./pages/NotFound.svelte";
+  import SignUp from "./pages/SignUp.svelte";
   import { userStore } from "./store/userStore";
 </script>
 
@@ -17,6 +18,7 @@
   <Route path="/puzzles" component={Puzzles} />
   <Route path="/stockfish" component={PlayStockfish} />
   <Route path="/login" component={Login} />
+  <Route path="/signup" component={SignUp} />
   {#if $userStore}
     <Route path="/new_post" component={NewPost} />
   {:else}
