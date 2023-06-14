@@ -1,17 +1,21 @@
 <script>
-  import { construct_svelte_component } from "svelte/internal";
   import { userStore } from "../store/userStore";
   import { navigate } from "svelte-routing";
 
   let username = "";
   let password = "";
+  let passwordConfirmation = "";
   let error = "";
 
   if ($userStore) navigate("/");
 
-  async function login() {
+  async function signup() {
+    if (passwordConfirmation !== password) {
+      error = "Passwords do not match";
+      return;
+    }
     const response = await fetch(
-      "https://sveltebackendv2.onrender.com/users/login",
+      "https://sveltebackendv2.onrender.com/users/register",
       {
         method: "POST",
         headers: {
@@ -38,7 +42,7 @@
   }
 </script>
 
-<form on:submit|preventDefault={login} class="flex mx-auto col-6">
+<form on:submit|preventDefault={signup} class="flex mx-auto col-6">
   <div class="box">
     <label for="username">
       <i class="fas fa-user" />
@@ -55,13 +59,25 @@
     <input type="password" id="password" bind:value={password} />
   </div>
 
-  <button type="submit">Login</button>
+  <div class="box">
+    <label for="password">
+      <i class="fas fa-lock" />
+      Password confirmation
+    </label>
+    <input
+      type="password"
+      id="password-confirmation"
+      bind:value={passwordConfirmation}
+    />
+  </div>
+
+  <button type="submit">Sign up</button>
   <div id="error_message">
     <small>{error}</small>
   </div>
 
   <div class="center">
-    <a href="/signup" class="link">Do not have an account? Sign up</a>
+    <a href="/login" class="link">Have an account? Log in</a>
   </div>
 </form>
 

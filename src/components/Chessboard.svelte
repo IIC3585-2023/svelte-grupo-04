@@ -12,7 +12,6 @@
   export let fen = null;
   export let key = Math.random().toString(36).substring(7);
   export let correctPuzzleMove = null;
-  export let reset = false;
   export let isGameStopped = false;
   export let chess = new Chess();
   export let history = [];
@@ -87,7 +86,7 @@
 
   // methods
 
-  function resetComponent() {
+  export function resetGame() {
     const squares = document.querySelectorAll(`.square-${key}`);
     if (lastMove) {
       highLightSquares(squares, [lastMove.from, lastMove.to], "remove");
@@ -180,7 +179,9 @@
   }
 
   function handleDragStart(event) {
-    currSourceSquare = getSquareByNumCoords(...event.target.dataset.square.split("").map((el) => parseInt(el)));
+    currSourceSquare = getSquareByNumCoords(
+      ...event.target.dataset.square.split("").map((el) => parseInt(el))
+    );
     // disappear image when dragging
     event.target.style.opacity = 0;
     // if window is not mobile
@@ -205,7 +206,9 @@
     event.preventDefault();
     const sourceSquare = currSourceSquare;
     // get targetSquare by position of cursor
-    const targetSquare = getSquareByNumCoords(...event.target.dataset.square.split("").map((el) => parseInt(el)));
+    const targetSquare = getSquareByNumCoords(
+      ...event.target.dataset.square.split("").map((el) => parseInt(el))
+    );
     dropPiece(sourceSquare, targetSquare);
   }
 
@@ -237,11 +240,6 @@
 
   // watch
   $: {
-    if (reset) {
-      resetComponent();
-      reset = false;
-    }
-
     if (chess) {
       history = history.concat(chess.history());
       chess = chess;
@@ -272,7 +270,7 @@
         >
           {#if i === 7 || j === 7}
             <span class="label-coord">
-              {(pointOfView === "b")?  getLabel(j, i) : getLabel(j, i)}
+              {pointOfView === "b" ? getLabel(j, i) : getLabel(j, i)}
             </span>
           {/if}
           {#if squareData}

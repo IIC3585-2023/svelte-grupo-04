@@ -5,6 +5,7 @@
   export let pgn = null;
   export let key = Math.random().toString(36).substring(7);
   export let solution;
+  let chessboard;
 
   let chess = new Chess();
   let playerColor = chess.turn();
@@ -13,7 +14,7 @@
     chess.loadPgn(pgn);
     playerColor = chess.turn();
   }
-  let reset = false;
+
   let isGameStopped = false;
   let solutionCopy = solution.slice();
 
@@ -43,7 +44,13 @@
 </script>
 
 <div class="game-container">
-  <Chessboard {correctPuzzleMove} {pgn} {key} bind:reset bind:isGameStopped />
+  <Chessboard
+    bind:this={chessboard}
+    {correctPuzzleMove}
+    {pgn}
+    {key}
+    bind:isGameStopped
+  />
   <div class="modal">
     {#if !isGameStopped}
       <img src={piecesjson["k" + playerColor]} alt="king" class="size-piece" />
@@ -65,7 +72,7 @@
         {/if}
         <button
           on:click={() => {
-            reset = true;
+            chessboard.resetGame();
             solutionCopy = solution.slice();
           }}>Retry</button
         >

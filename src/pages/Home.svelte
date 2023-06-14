@@ -1,12 +1,12 @@
 <script>
   import Puzzle from "../components/Puzzle.svelte";
-  import { store } from "../hooks/auth";
+  import { userStore } from "../store/userStore";
 
   let postsData = [];
-  let userId = localStorage.getItem("userId");
   let postsLiked = [];
-  if (userId) {
-    checkLikes(userId);
+
+  if ($userStore) {
+    checkLikes($userStore.id);
   }
 
   async function getPosts() {
@@ -39,7 +39,7 @@
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: parseInt(userId),
+          userId: parseInt($userStore.id),
         }),
       }
     );
@@ -60,7 +60,7 @@
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: parseInt(userId),
+          userId: parseInt($userStore.id),
         }),
       }
     );
@@ -96,13 +96,10 @@
   }
 
   $: {
-    if ($store) {
-      userId = localStorage.getItem("userId");
-      checkLikes(userId);
+    if ($userStore) {
+      checkLikes($userStore.id);
       getPosts();
-    }
-    if ($store === null) {
-      userId = null;
+    } else {
       postsLiked = [];
       getPosts();
     }
@@ -121,7 +118,7 @@
           <button
             class="like-button likes-button-id-{post.id}"
             on:click={() => giveOrDeleteLike(post.id)}
-            disabled={$store === null}
+            disabled={$userStore === null}
           >
             {#if postsLiked.includes(post.id)}
               <i class="fas fa-heart" style="color:red;" />

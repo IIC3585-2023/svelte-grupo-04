@@ -1,5 +1,5 @@
 <script>
-  import { store } from "../hooks/auth";
+  import { userStore } from "../store/userStore";
   import { navigate } from "svelte-routing";
 
   let pgn = "";
@@ -16,7 +16,7 @@
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: $store,
+        username: $userStore.username,
         pgn: pgn,
         puzzle: {
           solution: solution.split(","),
