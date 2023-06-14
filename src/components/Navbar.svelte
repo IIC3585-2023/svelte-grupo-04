@@ -1,5 +1,5 @@
 <script>
-  import { store } from "../hooks/auth";
+  import { userStore } from "../store/userStore";
   import { navigate } from "svelte-routing";
 
   // if width of screen is less than 768px, navbar will be hidden
@@ -7,8 +7,7 @@
   let displayButton = window.innerWidth > 768 ? "none" : "inline";
 
   async function logout() {
-    $store = null;
-    localStorage.removeItem("userId");
+    userStore.set(null);
     navigate("/");
   }
 
@@ -50,7 +49,7 @@
       <i class="fas fa-robot" />
       Stockfish
     </a>
-    {#if $store}
+    {#if $userStore}
       <a href="/new_post">
         <i class="fas fa-plus" />
         New post
@@ -58,7 +57,7 @@
     {/if}
   </div>
   <div class="navbar-links" style="display: {displayNav}">
-    {#if $store === null}
+    {#if !$userStore}
       <a href="/login">
         <i class="fas fa-sign-in-alt" />
         Login

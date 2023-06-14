@@ -1,6 +1,5 @@
 <script>
-  import { construct_svelte_component } from "svelte/internal";
-  import { store } from "../hooks/auth";
+  import { userStore } from "../store/userStore";
   import { navigate } from "svelte-routing";
 
   let username = "";
@@ -23,17 +22,16 @@
       }
     );
     if (response.status === 200) {
-      saveID(response);
+      saveUser(response);
       navigate("/");
     } else {
       error = "Bad username or password";
     }
   }
 
-  async function saveID(response) {
+  async function saveUser(response) {
     const data = await response.json();
-    localStorage.setItem("userId", data.user.id);
-    $store = username;
+    userStore.set({ id: data.user.id, username: data.user.username });
   }
 </script>
 
