@@ -15,4 +15,4 @@
 ## How to run
 
 1. `npm run dev`
-2. Open your browser and go to [http://localhost:5173](http://localhost:5173).
+2. Open your browser and go to [http://localhost:5173/svelte-grupo-04/](http://localhost:5173/svelte-grupo-04/).
