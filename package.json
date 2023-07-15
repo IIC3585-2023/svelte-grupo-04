@@ -7,11 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "vite build && gh-pages -d dist"
+    "deploy": "vite build && shx cp dist/index.html dist/404.html && gh-pages -d dist"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.4",
     "gh-pages": "^5.0.0",
+    "shx": "^0.3.4",
     "svelte": "^3.58.0",
     "vite": "^4.3.9"
   },
@@ -21,7 +22,6 @@
     "stockfish": "^15.0.0",
     "svelte-drag-drop-touch": "^0.1.9",
     "svelte-routing": "^1.10.0",
-    "vite-plugin-cross-origin-isolation": "^0.1.6",
     "vite-plugin-wasm": "^3.2.2"
   }
 }

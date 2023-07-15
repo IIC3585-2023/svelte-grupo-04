@@ -36,21 +36,21 @@
     >
       <i class="fas fa-bars" />
     </button>
-    <a href="/">
+    <a href="./">
       <i class="fas fa-chess" /> InstaChess
     </a>
   </div>
   <div class="navbar-links" style="display: {displayNav}">
-    <a href="/puzzles">
+    <a href="./puzzles">
       <i class="fas fa-puzzle-piece" />
       Puzzles
     </a>
-    <a href="/stockfish">
+    <a href="./stockfish">
       <i class="fas fa-robot" />
       Stockfish
     </a>
     {#if $userStore}
-      <a href="/new_post">
+      <a href="./new_post">
         <i class="fas fa-plus" />
         New post
       </a>
@@ -58,7 +58,7 @@
   </div>
   <div class="navbar-links" style="display: {displayNav}">
     {#if !$userStore}
-      <a href="/login">
+      <a href="./login">
         <i class="fas fa-sign-in-alt" />
         Login
       </a>
